@@ -6,7 +6,7 @@ export default async function page(props: { params: Promise<{ shorturl: string[]
 
   const PRODUCTION = true;
 
-  const URL = PRODUCTION ? "https://url-shortener.vercel.app" : "http://localhost:3000"
+  const URL = PRODUCTION ? "https://shortenyoururl.vercel.app" : "http://localhost:3000"
     
     let url;
     if (!(await params).shorturl) {
