@@ -31,7 +31,7 @@ const Page = () => {
   const [LinkData, setLinkData] = useState<LinkModel>();
 
   const PRODUCTION = true;
-  const URL = PRODUCTION ? "https://shortenyoururl.vercel.app" : "http://localhost:3000"
+  const URL = PRODUCTION ? "https://slimlink.vercel.app" : "http://localhost:3000"
 
   // Code for modal 
   const { isOpen, onOpen, onClose } = useDisclosure();
