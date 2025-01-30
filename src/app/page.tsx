@@ -27,7 +27,7 @@ const Page = () => {
   const [error, setError] = useState<string>('');
   const [shortenurl, setShortenUrl] = useState<string>(nanoid(5));
   const [expireAfterSeconds, setExpireAfterSeconds] = useState<string>("null");
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [LinkData, setLinkData] = useState<LinkModel>();
 
   const PRODUCTION = true;
@@ -38,20 +38,20 @@ const Page = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
+    setIsLoading(true)
     const formData: FormData = new FormData(e.target as HTMLFormElement)
     const url = formData.get('url') as string
     const shorturl = formData.get('shorturl') as string
     try {
       const LinkData = await axios.post('api/shorten-url', { url, shorturl, expireAfterSeconds })
-      console.log(LinkData);
+      // console.log(LinkData);
       setLinkData(LinkData.data)
       setStatus('success')
       onOpen()
-
     } catch (error) {
       setStatus('error');
-
+      
+      
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data?.error || "An error occurred");
         setError(error.response?.data?.error || "An unknown error occurred");
@@ -60,6 +60,8 @@ const Page = () => {
         setError("An unexpected error occurred");
 
       }
+    }finally{
+      setIsLoading(false)
     }
   };
 
@@ -170,7 +172,9 @@ const Page = () => {
           <div className='w-full sm:w-1/3 mx-auto'>
             <SelectInput />
           </div>
-          <button type='submit' className='bg-blue-500 hover:bg-blue-600 duration-200 text-white font-bold py-2 px-4 rounded-xl w-full sm:w-1/3 mt-5'>Shorten URL</button>
+          <Button color="primary" type="submit" isLoading={isLoading}>
+            Shorten URL
+          </Button>
         </form>
 
         <Modal isOpen={isOpen} size={"md"} onClose={onClose} backdrop='blur' className='dark'>
