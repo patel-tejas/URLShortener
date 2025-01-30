@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import Link from 'next/link';
 import Image from 'next/image';
-import heroImg from "../../public/heroImg.png"
+import heroImg from "@/images/heroImg.png"
 import { nanoid } from "nanoid";
 
 import {
